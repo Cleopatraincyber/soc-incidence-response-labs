@@ -1,0 +1,24 @@
+Ransomware Incident – SOC Lab Write-Up
+
+Summary
+This lab simulated a ransomware attack on a Windows workstation. My task was to identify the infection vector, analyze malicious activity, and recommend containment steps.
+Key Findings
+- Suspicious executable (`invoice_update.exe`) downloaded from a phishing email.
+- Process spawned `vssadmin.exe delete shadows` indicating shadow copy deletion.
+- High CPU usage from `encryptor.exe` encrypting user files.
+- Outbound connection to a known malicious IP address.
+
+Analysis Steps
+1. Reviewed Windows Event Logs for process creation events.
+2. Identified the parent-child process chain leading to the ransomware.
+3. Used Wireshark to analyze outbound traffic to the attacker’s command-and-control server.
+4. Mapped attacker behavior to MITRE ATT&CK techniques:
+   - **T1059** – Command Execution  
+   - **T1486** – Data Encrypted for Impact  
+   - **T1041** – Exfiltration Over C2 Channel  
+
+Containment Actions
+- Terminated malicious processes.
+- Isolated the host from the network.
+- Blocked malicious IPs at the firewall.
+- Recommended restoring files from backups.
